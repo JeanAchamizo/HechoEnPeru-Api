@@ -6,7 +6,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 #package the application
-RUN mvn clean package && ls -lR /app/target
+RUN mvn clean package -DskipTests && ls -l /app/target
 
 #run stage
 FROM openjdk:17.0.2-slim-buster
