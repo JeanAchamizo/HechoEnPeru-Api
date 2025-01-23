@@ -20,7 +20,7 @@ public class UploadFileService implements IUploadFileService{
     //private final static String UPLOADS_FOLDER = "images";
     private final String UPLOADS_FOLDER;
 
-    public UploadFileService(@Value("${uploads.folder:images}") String uploadsFolder) {
+    public UploadFileService(@Value("${app.uploads-folder:images}") String uploadsFolder) {
         this.UPLOADS_FOLDER = uploadsFolder;
     }
     @Override

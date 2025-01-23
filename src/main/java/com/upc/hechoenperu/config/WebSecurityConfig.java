@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,7 +58,11 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        //desactiva el csrf porque spring boot ya tiene su propia configuración de csrf
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(Customizer.withDefaults());
+
+        /*http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> {
                 authorize.requestMatchers(
                         "/api/auth/**",
@@ -68,7 +73,18 @@ public class WebSecurityConfig {
                         "/favicon.ico"
                 ).permitAll();
                 authorize.anyRequest().authenticated();
-                }).httpBasic(Customizer.withDefaults());
+                }).httpBasic(Customizer.withDefaults());*/
+        http.authorizeHttpRequests(authorize -> {
+            authorize.requestMatchers(
+                    "/api/auth/**",
+                    "/api/**",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/error",
+                    "/favicon.ico"
+            ).permitAll();
+            authorize.anyRequest().authenticated();
+        }).httpBasic(Customizer.withDefaults());
 
         http.exceptionHandling( exception -> exception
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint));

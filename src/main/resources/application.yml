@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: HechoEnPeru
+  datasource:
+    url: ${DB_URL} # Cargando el valor desde env.properties
+    driverClassName: 'org.postgresql.Driver'
+    username: ${DB_USERNAME} # Cargando el valor desde env.properties
+    password: ${DB_PASSWORD} # Cargando el valor desde env.properties
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    import: env.properties
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+app:
+  jwt-secret: ${JWT_SECRET} # Cargando el valor desde env.properties
+  uploads-folder: ${UPLOADS_FOLDER} # Cargando el valor desde env.properties

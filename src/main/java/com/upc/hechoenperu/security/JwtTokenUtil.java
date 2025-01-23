@@ -22,7 +22,7 @@ public class JwtTokenUtil implements Serializable {
     //milisegundos || 18 minutos, le quitamos mil 18 segundos demo
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 1000;
 
-    @Value("${jwt.secret}")
+    @Value("${app.jwt-secret}")
     private String secret;
 
     //@Value("${app.jwt-expiration-min}")
