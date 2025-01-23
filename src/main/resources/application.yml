@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
     show-sql: true
   config:
-    import: env.properties
+    import: "optional:/etc/secrets/env.properties"
 server:
   port: 8080
   error:
